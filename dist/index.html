@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <style>*{margin:0;padding:0;box-sizing: border-box}
+        :root{
+            --button-height:32px;
+            --font-size:14px;
+            --border-radius:4px;
+            --color:#3c8cff;
+            --border-bg:#fff;
+            --border-color:#999;
+            --button-active-bg:#ededed;
+            --border-color-hover:#3c8cff;
+        }
+        #app{
+            margin: 20px;
+        }
+        body{
+            font-size: var(--font-size);
+        }
+        .m-b{
+            margin-bottom:10px;
+        }
+        img{
+            max-width:100%;
+        }
+        /*transition*/
+        .slide-fade-enter-active{
+            transition: all 0.5s;
+        }
+        .slide-fade-leave-active{
+            transition: all 0.6s cubic-bezier(0, -1, 0, 1.0);
+        }
+        .slide-fade-enter, .slide-fade-leave-to{
+            opacity: 0;
+            transform: translateX(10px);
+        }
+
+        .bounce-enter-active{
+            animation: bounce-in .5s;
+        }
+        .bounce-leave-active{
+            animation: bounce-in .5s reverse;
+        }
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition: all 0.7s;
+        }
+        .fade-enter{
+            transform: translateX(40px);
+            opacity: 0;
+        }
+        .fade-leave-to{
+            transform: translateX(-40px);
+            opacity: 0;
+        }
+        .btn{
+            position: absolute;
+        }
+        .component-fade-enter-active, .component-fade-leave-active {
+            transition: opacity .3s ease;
+        }
+        .component-fade-enter, .component-fade-leave-to{
+            opacity: 0;
+        }
+        .list-item{
+            display: inline-block;
+        }
+        /*transitionList*/
+        .list-enter-active, .list-leave-active {
+            transition: all 1s;
+        }
+        .list-enter, .list-leave-to
+            /* .list-leave-active for below version 2.1.8 */ {
+            opacity: 0;
+            transform: translateY(30px);
+        }</style>
+<link rel="stylesheet" href="/app.a6a4d504.css"></head>
+<body>
+    <div id="app">
+        <!--transitionList-->
+        <button @click="add">Add</button>
+        <button @click="remove">Remove</button>
+        <transition-group name="list" tap="p">
+            <span v-for="item in items" :key="item" class="list-item">
+                {{item}}
+            </span>
+        </transition-group>
+        <!--transitionGrounp-->
+        <div>
+            <button @click="view = 'v-a'">
+                v-a
+            </button>
+            <button @click="view = 'v-b'">
+                v-b
+            </button>
+            <transition name="component-fade" mode="out-in">
+                <component :is="view"></component>
+            </transition>
+        </div>
+
+        <!--transition-->
+        <div>
+            <button @click="isShow = !isShow">
+                Toggle
+            </button>
+            <button @click="isShow2 = !isShow2">
+                Toggle2
+            </button>
+
+            <g-button icon-position="right" @click="isShow3 = !isShow3">btn1</g-button>
+
+            <transition enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
+                <p v-if="isShow">hello</p>
+            </transition>
+            <transition name="bounce">
+                <p v-if="isShow2">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.
+                </p>
+            </transition>
+            <transition name="fade">
+                <button class="btn" key="Edit" v-if="isShow3">
+                    Edit
+                </button>
+                <button class="btn" key="Save" v-else="">
+                    Save
+                </button>
+            </transition>
+        </div>
+        <div>
+            <div style="margin:50px">
+                <g-cascader :source.sync="source" wrap-height="150px" :selected.sync="selected" :load-data="loadData"></g-cascader>
+                <!--@update:source="onUpdateSource"-->
+            </div>
+
+            <div style="margin:50px">
+                <g-cascader :source.sync="source" wrap-height="150px" :selected.sync="selected" :load-data="loadData"></g-cascader>
+                <!--@update:source="onUpdateSource"-->
+            </div>
+            <g-popover>
+                <template>
+                    <button>点我</button>
+                </template>
+                <template slot="content">
+                    弹出内容
+                </template>
+            </g-popover>
+        </div>
+
+        <!--{{source}}-->
+        <div style="margin:50px">
+            <g-collapse :selected.sync="collapseSelected">
+                <g-collapse-item title="标题1" name="1">这是内容1</g-collapse-item>
+                <g-collapse-item title="标题2" name="2">这是内容2</g-collapse-item>
+                <g-collapse-item title="标题3" name="3">这是个好用的collapse,但是有人用他吗,shouqianma</g-collapse-item>
+            </g-collapse>
+            {{collapseSelected}}
+        </div>
+        <hr>
+        <div style="margin:50px;padding:5px;border:2px solid #3c8cff;">
+            <g-popover position="bottom" trigger="hover">
+                <template slot="content">
+                    <div>这是个好用的popover,但是有人用他吗,shouqianma</div>
+                </template>
+                <g-button iconsvg="qq">好看的按钮</g-button>
+            </g-popover>
+
+            <g-popover trigger="hover">
+                <template slot="content">
+                    <div>这是个耐用的popover</div>
+                </template>
+                <g-button>耐用的按钮</g-button>
+            </g-popover>
+
+            <g-popover position="left">
+                <template slot="content">
+                    <div>popover是真的坑,学习了两天真是坑，希望能好好使用善待它</div>
+                </template>
+                <g-button>坑比的按钮</g-button>
+            </g-popover>
+
+            <g-popover position="right">
+                <template slot="content">
+                    <div>popover是真的坑</div>
+                </template>
+                <g-button>坑比的按钮</g-button>
+            </g-popover>
+        </div>
+
+        <hr>
+        <g-tab :selected.sync="selectedTab" style="margin-bottom: 20px;">
+        <!--<g-tab selected="selectedTab" @update:selected="selectedTab = $event">-->
+            <g-tab-header>
+                <g-tab-item name="woman" disabled="">
+                    美女
+                </g-tab-item>
+                <g-tab-item name="sports">
+                    体育
+                </g-tab-item>
+                <g-tab-item name="freedom">
+                    自由民主
+                </g-tab-item>
+            </g-tab-header>
+            <g-tab-body>
+                <g-tab-pane name="woman">
+                    美女相关资讯
+                </g-tab-pane>
+                <g-tab-pane name="sports">
+                    体育相关资讯
+                </g-tab-pane>
+                <g-tab-pane name="freedom">
+                    自由民主相关资讯
+                </g-tab-pane>
+            </g-tab-body>
+        </g-tab>
+        <hr>
+        <g-button iconsvg="qq" @click="showToast1">Toast1</g-button>
+        <g-button iconsvg="qq" @click="showToast2">Toast2</g-button>
+        <g-button iconsvg="qq" @click="showToast3">Toast3</g-button>
+        <div>
+            <g-row class="m-b">
+                <g-col span="8" :phone="{span:19,offset:5}">vue.js</g-col>
+                <g-col span="8" :phone="{span:20,offset:4}">vue.js</g-col>
+                <g-col span="8" :phone="{span:21,offset:3}">vue.js</g-col>
+                <g-col span="8" :phone="{span:22,offset:2}">vue.js</g-col>
+                <g-col span="8" :phone="{span:23,offset:1}">vue.js</g-col>
+                <g-col span="8" :phone="{span:24}">vue.js</g-col>
+            </g-row>
+        </div>
+        <hr>
+        <div>
+            <g-row class="m-b">
+                <g-col :phone="{span:21,offset:3}">vue.js</g-col>
+                <g-col :phone="{span:24}">vue.js</g-col>
+            </g-row>
+            <g-row class="m-b" gutter="20">
+                <g-col>
+                    <img src="https://gw.alicdn.com/tfs/TB1S2kFfYH1gK0jSZFwXXc7aXXa-290-130.gif">
+                </g-col>
+                <g-col>vue.js</g-col>
+            </g-row>
+            <g-row class="m-b" align="right" gutter="20">
+                <g-col span="6">
+                    <g-row gutter="20">
+                        <g-col>vue.js是最好的框架</g-col>
+                        <g-col>react.js</g-col>
+                    </g-row>
+                </g-col>
+                <g-col span="3">2</g-col>
+                <g-col span="3">3</g-col>
+            </g-row>
+            <g-row class="m-b" gutter="20" align="center">
+                <g-col span="3" :phone="{span:9,offset:3}">1</g-col>
+                <g-col span="15" :phone="{span:12}">2</g-col>
+            </g-row>
+            <g-row class="m-b" gutter="20">
+                <g-col span="3">1</g-col>
+                <g-col span="18" offset="3">
+                    <div style="background-color: #00a8e6">123</div>
+                </g-col>
+            </g-row>
+        </div>
+        <hr>
+        <g-input v-model="inputValue"></g-input>
+        <g-input v-model="inputValue"></g-input>
+        <p>{{inputValue}}</p>
+        <g-button iconsvg="qq" @click="inputValue+=1">按钮+1</g-button>
+        <g-input value="xiaoli" @change="changeInput"></g-input>
+        <g-input value="xiaoli" @input="onInput"></g-input>
+        <g-input value="xiaoli" @focus="focusInput"></g-input>
+        <g-input value="xiaoli" @blur="blurInput"></g-input>
+        <g-input value="kekeke" disabled=""></g-input>
+        <g-input value="hailohai" error="不能超过5个字"></g-input>
+        <div style="margin-top: 20px;">
+            <g-button :loading="loading1" @click="loading1=!loading1">我爱js</g-button>
+            <g-button iconsvg="qq" :loading="loading2" icon-position="right" @click="loading2=!loading2">我爱vue</g-button>
+            <g-button iconsvg="qq" :loading="loading3" @click="loading3=!loading3">我爱node.js</g-button>
+            <g-button :loading="loading4" @click="loading4=!loading4">我爱vue</g-button>
+
+            <g-button-grounp>
+                <g-button iconsvg="fanhui" icon-position="right">返回</g-button>
+                <g-button>我爱vue</g-button>
+                <g-button iconsvg="yonghu" :loading="loading3" @click="loading3=!loading3">用户更多</g-button>
+            </g-button-grounp>
+        </div>
+    </div>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <script src="/app.a6a4d504.js"></script>
+    <script src="//at.alicdn.com/t/font_205882_lcbjtln1z1k.js"></script>
+</body>
+</html>

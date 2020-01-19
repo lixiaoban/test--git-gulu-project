@@ -1,0 +1,52 @@
+.icon-svg[data-v-9d6a6b] {
+  width: 1em;
+  height: 1em;
+  color: #3c8cff;
+}
+@keyframes spin-data-v-3bf639 {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
+}
+.g-button[data-v-3bf639] {
+  height: var(--button-height);
+  font-size: var(--font-size);
+  padding: 0 1em;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--border-bg);
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  display: inline-flex;
+}
+.g-button .g-button-content[data-v-3bf639] {
+  order: 2;
+}
+.g-button .icon-svg[data-v-3bf639] {
+  order: 1;
+  margin-right: 0.5em;
+}
+.g-button[data-v-3bf639]:hover {
+  border-color: var(--border-color-hover);
+}
+.g-button[data-v-3bf639]:active {
+  background-color: var(--button-active-bg);
+}
+.g-button[data-v-3bf639]:focus {
+  outline: none;
+}
+.g-button.icon-right .g-button-content[data-v-3bf639] {
+  order: 1;
+}
+.g-button.icon-right .icon-svg[data-v-3bf639] {
+  order: 2;
+  margin-left: 0.5em;
+}
+.g-button .loading[data-v-3bf639] {
+  animation: spin-data-v-3bf639 infinite linear 1.5s;
+}
+

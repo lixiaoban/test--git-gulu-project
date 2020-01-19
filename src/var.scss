@@ -1,0 +1,12 @@
+$height:32px;
+$color:#000;
+$colorRed:red;
+$borderColor:#ebebeb;
+$popoverBg:#fff1f0;
+.box-shadow{
+  box-shadow: 0 0 5px rgba(0,0,0,0.15);
+}
+@keyframes spin {
+   0%{transform:rotate(0deg)}
+   100%{transform:rotate(360deg)}
+}
