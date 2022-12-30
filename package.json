@@ -9,7 +9,7 @@
     "karma-mocha": "^1.3.0",
     "karma-sinon-chai": "^2.0.2",
     "less": "^3.10.3",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "sass": "^1.23.0-module.beta.1",
     "sinon": "^7.4.2",
     "sinon-chai": "^3.3.0",
